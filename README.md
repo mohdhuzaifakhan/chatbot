@@ -1,9 +1,7 @@
 
-
-# Llama2 Medical Bot
-
-The Llama2 Medical Bot is a powerful tool designed to provide medical information by answering user queries using state-of-the-art language models and vector stores. This README will guide you through the setup and usage of the Llama2 Medical Bot.
-
+## Description and solution
+    In this project, I'm utilizing Langchain and Hugging Face API to build a conversational AI system. The aim is to leverage various models and tools to create a robust and efficient system capable of generating text responses based on input queries. Specifically, I'm incorporating the Llama2 model for text generation, FAISS vector database for storing embeddings, and CTransformer for quantization of downloaded models, enabling local execution of the model.
+    For the frontend of the project, I'm utilizing ChainLit, an innovative library designed to streamline the development of conversational AI applications. ChainLit offers a comprehensive set of tools and utilities tailored specifically for building interactive chatbots and conversational interfaces.
 ## Table of Contents
 
 - [Introduction](#langchain-medical-bot)
@@ -16,8 +14,6 @@ The Llama2 Medical Bot is a powerful tool designed to provide medical informatio
 - [License](#license)
 
 ## Prerequisites
-
-Before you can start using the Llama2 Medical Bot, make sure you have the following prerequisites installed on your system:
 
 - Python 3.6 or higher
 - Required Python packages (you can install them using pip):
@@ -47,7 +43,12 @@ Before you can start using the Llama2 Medical Bot, make sure you have the follow
 
     ```bash
     pip install -r requirements.txt
+
+    python ingest.py  # To store the database embeddings of the provided data in the data folder
+
+    chailit run model.py -w  # to run the app
     ```
+
 
 4. Download the required language models and data. Please refer to the Langchain documentation for specific instructions on how to download and set up the language model and vector store.
 
@@ -55,7 +56,7 @@ Before you can start using the Llama2 Medical Bot, make sure you have the follow
 
 ## Getting Started
 
-To get started with the Llama2 Medical Bot, you need to:
+To get started with the Llama2 chat Bot, you need to:
 
 1. Set up your environment and install the required packages as described in the Installation section.
 
@@ -67,11 +68,11 @@ To get started with the Llama2 Medical Bot, you need to:
 
 ## Usage
 
-The Llama2 Medical Bot can be used for answering medical-related queries. To use the bot, you can follow these steps:
+The Llama2 chat Bot can be used for answering user related queries. To use the bot, you can follow these steps:
 
 1. Start the bot by running your application or using the provided Python script.
 
-2. Send a medical-related query to the bot.
+2. Send a query to the bot.
 
 3. The bot will provide a response based on the information available in its database.
 
@@ -81,7 +82,7 @@ The Llama2 Medical Bot can be used for answering medical-related queries. To use
 
 ## Contributing
 
-Contributions to the Llama2 Medical Bot are welcome! If you'd like to contribute to the project, please follow these steps:
+Contributions to the Llama2 chat Bot are welcome! If you'd like to contribute to the project, please follow these steps:
 
 1. Fork the repository to your own GitHub account.
 
@@ -92,13 +93,3 @@ Contributions to the Llama2 Medical Bot are welcome! If you'd like to contribute
 4. Create a pull request to the main repository, explaining your changes and improvements.
 
 5. Your pull request will be reviewed, and if approved, it will be merged into the main codebase.
-
-## License
-
-This project is licensed under the MIT License.
-
----
-
-For more information on how to use, configure, and extend the Llama2 Medical Bot, please refer to the Langchain documentation or contact the project maintainers.
-
-Happy coding with Llama2 Medical Bot! 🚀

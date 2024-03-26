@@ -1,9 +1,11 @@
 from langchain_community.document_loaders import PyPDFLoader, DirectoryLoader
 from langchain.prompts import PromptTemplate
 from langchain_community.embeddings import HuggingFaceEmbeddings
+from langchain_community.embeddings import HuggingFaceInstructEmbeddings
 from langchain_community.vectorstores import FAISS
 from langchain_community.llms import CTransformers
 from langchain.chains import RetrievalQA
+from sentence_transformers import SentenceTransformer
 import chainlit as cl
 
 DB_FAISS_PATH = 'vectorstore/db_faiss'
@@ -40,7 +42,7 @@ def retrieval_qa_chain(llm, prompt, db):
 def load_llm():
     # Load the locally downloaded model here
     llm = CTransformers(
-        model = "TheBloke/Llama-2-7B-Chat-GGML",
+        model = "llama-2-7b-chat.ggmlv3.q4_0.bin",
         model_type="llama",
         max_new_tokens = 512,
         temperature = 0.5
@@ -49,9 +51,10 @@ def load_llm():
 
 #QA Model Function
 def qa_bot():
-    embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2",
+    embeddings = HuggingFaceEmbeddings(model_name='sentence-transformers/all-MiniLM-L6-v2',
                                        model_kwargs={'device': 'cpu'})
-    db = FAISS.load_local(DB_FAISS_PATH, embeddings)
+
+    db = FAISS.load_local(DB_FAISS_PATH,embeddings,allow_dangerous_deserialization=True)
     llm = load_llm()
     qa_prompt = set_custom_prompt()
     qa = retrieval_qa_chain(llm, qa_prompt, db)
@@ -77,7 +80,7 @@ async def start():
 
 @cl.on_message
 async def main(message: cl.Message):
-    chain = cl.user_session.get("chain") 
+    chain = cl.user_session.get("chain")
     cb = cl.AsyncLangchainCallbackHandler(
         stream_final_answer=True, answer_prefix_tokens=["FINAL", "ANSWER"]
     )
@@ -92,4 +95,3 @@ async def main(message: cl.Message):
         answer += "\nNo sources found"
 
     await cl.Message(content=answer).send()
-
